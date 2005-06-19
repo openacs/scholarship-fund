@@ -31,9 +31,10 @@ set admin_p [permission::permission_p \
                  -privilege "admin"]
 
 set actions [list "Add Fund" fund-add-edit "Add a new scholarship fund"]
-db_multirow -extend { one_url edit_url } funds get_funds "" {
+db_multirow -extend { one_url edit_url delete_url } funds get_funds "" {
     set one_url [export_vars -base one-fund {item_id}]
     set edit_url [export_vars -base fund-add-edit {item_id}]
+    set delete_url [export_vars -base fund-delete {item_id}]
 }
 
 template::list::create \
@@ -49,6 +50,8 @@ template::list::create \
 	    <div align=center>
        	    <a href="@funds.edit_url@"
 	    title="Edit Fund"><img border="0" src="/resources/Edit16.gif"></a>
+       	    <a href="@funds.delete_url@"
+	    title="Delete Fund"><img border="0" src="/resources/Delete16.gif"></a>
 	    }
 	}
     }

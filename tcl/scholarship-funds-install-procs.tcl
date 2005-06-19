@@ -57,14 +57,18 @@ ad_proc -private sf::install::after_instantiate {
     
     @error 
 } {
+    ns_log Warning "about to all folder new"
     set folder_id [content::folder::new \
                        -name "scholarship_fund_${package_id}" \
                        -parent_id -100 \
                        -package_id $package_id \
                        -label "Scholarship Funds ${package_id}"]
+    ns_log Warning "folder_id is $folder_id"
 
     content::folder::register_content_type \
         -folder_id $folder_id \
-        -content_type scholarship_find
+        -content_type scholarship_fund
+    
+    ns_log Warning "registered the content type"
 }
 
