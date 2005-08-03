@@ -41,6 +41,13 @@ ad_proc -public sf::install::package_install {
         -pretty_plural "Account Codes" \
         -column_spec "varchar(200)"
     
+    content::type::attribute::new \
+        -content_type scholarship_fund \
+        -attribute_name "amount" \
+        -datatype text \
+        -pretty_name "Amount in Fund" \
+        -pretty_plural "Amount in Fund" \
+        -column_spec "float"
 }
 
 ad_proc -private sf::install::after_instantiate {
@@ -72,3 +79,35 @@ ad_proc -private sf::install::after_instantiate {
     ns_log Warning "registered the content type"
 }
 
+ad_proc -private sf::install::after_upgrade {
+    -from_version_name:required
+    -to_version_name:required
+} {
+    After upgrade callback
+    
+    @author Roel Canicula (roelmc@pldtdsl.net)
+    @creation-date 2005-08-04
+    
+    @param from_version_name
+
+    @param to_version_name
+
+    @return 
+    
+    @error 
+} {
+    apm_upgrade_logic \
+	-from_version_name $from_version_name \
+	-to_version_name $to_ersion_name \
+	-spec {
+	    0.1d 0.1d1 {
+		content::type::attribute::new \
+		    -content_type scholarship_fund \
+		    -attribute_name "amount" \
+		    -datatype text \
+		    -pretty_name "Amount in Fund" \
+		    -pretty_plural "Amount in Fund" \
+		    -column_spec "float"
+	    }
+	}
+}

@@ -37,12 +37,13 @@ set folder_id [content::folder::get_folder_from_package -package_id $package_id]
 ad_form -name fund-add-edit \
     -form {
         item_id:key
-        title:text
-        description:text(textarea)
-        account_code:text
+        {title:text {label Title}}
+        {description:text(textarea) {label Description}}
+        {account_code:text {label "Account Code"}}
+	{amount:float {label "Amount in Fund"}}
     } -edit_request {
         # get existing fund info
-	db_1row get_fund "select sf.title, sf.description, sf.account_code from scholarship_fundi sf, cr_items ci where sf.revision_id=ci.live_revision and sf.item_id=:item_id"
+	db_1row get_fund "select sf.title, sf.description, sf.account_code, sf.amount from scholarship_fundi sf, cr_items ci where sf.revision_id=ci.live_revision and sf.item_id=:item_id"
     } -new_data {
         #add fund
         content::item::new \
@@ -53,7 +54,8 @@ ad_form -name fund-add-edit \
             -description $description \
             -content_type scholarship_fund \
             -is_live t \
-            -attributes [list [list account_code $account_code]]
+            -attributes [list [list account_code $account_code] \
+			     [list amount $amount]]
             
     } -edit_data {
         #update fund
@@ -61,7 +63,8 @@ ad_form -name fund-add-edit \
             -item_id $item_id \
             -title $title \
             -description $description \
-            -attributes [list [list account_code $account_code]] \
+            -attributes [list [list account_code $account_code] \
+			     [list amount $amount]] \
             -is_live t
         
     } -after_submit {
