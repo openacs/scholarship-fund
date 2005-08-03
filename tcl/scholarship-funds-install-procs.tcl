@@ -98,7 +98,7 @@ ad_proc -private sf::install::after_upgrade {
 } {
     apm_upgrade_logic \
 	-from_version_name $from_version_name \
-	-to_version_name $to_ersion_name \
+	-to_version_name $to_version_name \
 	-spec {
 	    0.1d 0.1d1 {
 		content::type::attribute::new \
