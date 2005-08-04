@@ -100,7 +100,7 @@ ad_proc -private sf::install::after_upgrade {
 	-from_version_name $from_version_name \
 	-to_version_name $to_version_name \
 	-spec {
-	    0.1d 0.1d1 {
+	    0.4d 0.5d {
 		content::type::attribute::new \
 		    -content_type scholarship_fund \
 		    -attribute_name "amount" \
