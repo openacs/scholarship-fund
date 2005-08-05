@@ -44,7 +44,6 @@ template::list::create \
     -elements {
         title { label "Title"  link_url_col one_url }
         description { label "Description" }
-	amount { label "Amount in Fund" }
 	actions {
 	    label "Actions"
 	    display_template {

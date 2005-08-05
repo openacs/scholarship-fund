@@ -129,16 +129,10 @@ if { $user_id } {
 
 }
 
-set fund_amount [db_string fund_amount {
-    select amount
-    from scholarship_fund
-    where fund_id = :fund_id
-} -default 0]
-
 ad_form -extend -name grant -validate {
     {grant_amount
-	{ $grant_amount > 0 && $grant_amount <= $fund_amount }
-	"Please enter an amount up to $fund_amount"
+	{ $grant_amount > 0 }
+	"Invalid grant amount"
     }
 } -form {
     {grant_amount:text {label "Amount to Grant"}
@@ -169,11 +163,11 @@ ad_form -extend -name grant -validate {
 	    (:fund_id, :user_id, :gift_certificate_id, :grant_amount)
 	}
 
-	db_dml update_scholarship_fund {
-	    update scholarship_fund
-	    set amount = amount - :grant_amount
-	    where fund_id = :fund_id
-	}
+# 	db_dml update_scholarship_fund {
+# 	    update scholarship_fund
+# 	    set amount = amount - :grant_amount
+# 	    where fund_id = :fund_id
+# 	}
     }
 
     ad_returnredirect index

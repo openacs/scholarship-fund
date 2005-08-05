@@ -36,7 +36,6 @@ ad_form -name one -mode display -export { item_id } -has_edit 1 -form {
     {title:text {label "Fund Title"}}
     {description:text(textarea) {label "Description"}}
     {account_code:text {label "Account Code"}}
-    {amount:text {label "Amount"}}
 } -on_request {
     db_1row get_fund "select sf.title, sf.description, sf.account_code, sf.amount from scholarship_fundi sf, cr_items ci where sf.revision_id=ci.live_revision and sf.item_id=:item_id"
 }

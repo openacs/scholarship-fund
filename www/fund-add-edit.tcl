@@ -40,7 +40,6 @@ ad_form -name fund-add-edit \
         {title:text {label Title}}
         {description:text(textarea) {label Description}}
         {account_code:text {label "Account Code"}}
-	{amount:float {label "Amount in Fund"}}
     } -edit_request {
         # get existing fund info
 	db_1row get_fund "select sf.title, sf.description, sf.account_code, sf.amount from scholarship_fundi sf, cr_items ci where sf.revision_id=ci.live_revision and sf.item_id=:item_id"
@@ -54,8 +53,7 @@ ad_form -name fund-add-edit \
             -description $description \
             -content_type scholarship_fund \
             -is_live t \
-            -attributes [list [list account_code $account_code] \
-			     [list amount $amount]]
+            -attributes [list [list account_code $account_code]]
             
     } -edit_data {
         #update fund
@@ -63,8 +61,7 @@ ad_form -name fund-add-edit \
             -item_id $item_id \
             -title $title \
             -description $description \
-            -attributes [list [list account_code $account_code] \
-			     [list amount $amount]] \
+            -attributes [list [list account_code $account_code]] \
             -is_live t
         
     } -after_submit {
