@@ -48,6 +48,8 @@ ad_proc -public sf::install::package_install {
         -pretty_name "Amount in Fund" \
         -pretty_plural "Amount in Fund" \
         -column_spec "float"
+
+     db_dml "alter_foreign_key" "alter table scholarship_fund_grants add constraint fund_id_fk foreign key (fund_id) references scholarship_fund (fund_id) on delete cascade"
 }
 
 ad_proc -private sf::install::after_instantiate {
