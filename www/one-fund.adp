@@ -7,6 +7,9 @@
 <formtemplate id="one"></formtemplate>
 <if @admin_p@><div><a href="@edit_url@" class="button">Edit Fund</a></div></if>  
 
+<if 0>
+DISABLED USER SIDE SCHOLARSHIP GRANTS
 <p />
 
 <listtemplate name="grants"></listtemplate>
+</if>
