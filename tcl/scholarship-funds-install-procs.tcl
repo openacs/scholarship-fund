@@ -111,5 +111,14 @@ ad_proc -private sf::install::after_upgrade {
 		    -pretty_plural "Amount in Fund" \
 		    -column_spec "float"
 	    }
+	    0.5d 0.6d {
+		content::type::attribute::new \
+		    -content_type scholarship_fund \
+		    -attribute_name "export_p" \
+		    -datatype boolean \
+		    -pretty_name "Exported" \
+		    -pretty_plural "Exported" \
+		    -column_spec "boolean"
+	    }
 	}
 }

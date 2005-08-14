@@ -30,7 +30,10 @@ set admin_p [permission::permission_p \
                  -party_id $user_id \
                  -privilege "admin"]
 
-set actions [list "Add Fund" fund-add-edit "Add a new scholarship fund"]
+set actions [list "Add Fund" fund-add-edit "Add a new scholarship fund" \
+		  "Export All Non-Transferred and MARK ALL Transfered" export-confirm?all=1&mark=1 "Export All Expenses" \
+		  "Export All but DO NOT MARK Transferred" export-confirm?all=1&mark=0 "Export Expenses"]
+
 db_multirow -extend { one_url edit_url delete_url } funds get_funds "" {
     set one_url [export_vars -base one-fund {item_id}]
     set edit_url [export_vars -base fund-add-edit {item_id}]
