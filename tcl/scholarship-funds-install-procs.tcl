@@ -49,6 +49,14 @@ ad_proc -public sf::install::package_install {
         -pretty_plural "Amount in Fund" \
         -column_spec "float"
 
+    content::type::attribute::new \
+	-content_type scholarship_fund \
+	-attribute_name "export_p" \
+	-datatype boolean \
+	-pretty_name "Exported" \
+	-pretty_plural "Exported" \
+	-column_spec "boolean"
+
      db_dml "alter_foreign_key" "alter table scholarship_fund_grants add constraint fund_id_fk foreign key (fund_id) references scholarship_fund (fund_id) on delete cascade"
 }
 
@@ -119,6 +127,8 @@ ad_proc -private sf::install::after_upgrade {
 		    -pretty_name "Exported" \
 		    -pretty_plural "Exported" \
 		    -column_spec "boolean"
+		db_dml "export_set_default" "alter scholarship_fund alter column export_p set default 'false'"
+		db_dml "export_p_update" "update scholarship_fund set export_p ='false'"
 	    }
 	}
 }
