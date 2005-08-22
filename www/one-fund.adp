@@ -7,6 +7,6 @@
 <formtemplate id="one"></formtemplate>
 <if @admin_p@><div><a href="@edit_url@" class="button">Edit Fund</a></div></if>  
 
-<p />
 
+<h2>Grants</h2>
 <listtemplate name="grants"></listtemplate>

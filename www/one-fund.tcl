@@ -36,8 +36,10 @@ ad_form -name one -mode display -export { item_id } -has_edit 1 -form {
     {title:text {label "Fund Title"}}
     {description:text(textarea) {label "Description"}}
     {account_code:text {label "Account Code"}}
+    {export_inform:text(inform) {label "Exported?"}}
 } -on_request {
-    db_1row get_fund "select sf.title, sf.description, sf.account_code, sf.amount from scholarship_fundi sf, cr_items ci where sf.revision_id=ci.live_revision and sf.item_id=:item_id"
+    db_1row get_fund "select sf.export_p, sf.title, sf.description, sf.account_code, sf.amount from scholarship_fundi sf, cr_items ci where sf.revision_id=ci.live_revision and sf.item_id=:item_id"
+    set export_inform [_ [ad_decode $export_p t "acs-kernel.common_Yes" "acs-kernel.common_No"]]
 }
 
 set actions ""

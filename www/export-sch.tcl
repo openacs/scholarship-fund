@@ -32,7 +32,7 @@ template::list::create \
     -formats {
         csv { output csv }
     } -elements {
-	sch_fund {
+	fund_id {
 		label "Fund"
 	}
 	account_code {
@@ -41,12 +41,27 @@ template::list::create \
 	description {
 		label "Description"
 	}
+	name {
+	    label "Name"
+	}
+	grant_date {
+	    label "Grant Date"
+	}
+	grant_amount {
+	    label "Grant Amount"
+	}
     } 
 
 # build the multirow
 
-set query "select fund_id, description, account_code, export_p from scholarship_fundx where export_p = false"
-
+#set query "select fund_id, description, account_code, export_p from scholarship_fundx where export_p = false"
+set query "select f.fund_id, person__name(g.user_id) as name, to_char(g.grant_date, 'Month dd, yyyy hh:miam') as grant_date, g.grant_amount,
+    f.account_code, f.description
+    from scholarship_fund_grants g,
+    scholarship_fundi f
+    where g.fund_id=f.fund_id
+    group by person__name(g.user_id), g.grant_date, g.grant_amount, f.fund_id, f.account_code, f.description
+    order by g.grant_date"
 # Save for Later in case we want 
 # to bring back selective exports
 
@@ -66,7 +81,7 @@ set query "select fund_id, description, account_code, export_p from scholarship_
 db_multirow scholarship_funds get_sch_funds $query { }
 
 if { $mark == 1 } {
-	db_dml "mark_exported" "update scholarship_fund set exported_p = 't'"
+	db_dml "mark_exported" "update scholarship_fund set export_p = 't'"
 }
 
 # change headers to output csv

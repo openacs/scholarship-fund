@@ -47,6 +47,7 @@ template::list::create \
     -elements {
         title { label "Title"  link_url_col one_url }
         description { label "Description" }
+        export_p { label "Exported?" display_eval {[_ [ad_decode $export_p t "acs-kernel.common_Yes" "acs-kernel.common_No"]]}}
 	actions {
 	    label "Actions"
 	    display_template {
