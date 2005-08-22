@@ -36,10 +36,8 @@ ad_form -name one -mode display -export { item_id } -has_edit 1 -form {
     {title:text {label "Fund Title"}}
     {description:text(textarea) {label "Description"}}
     {account_code:text {label "Account Code"}}
-    {export_inform:text(inform) {label "Exported?"}}
 } -on_request {
     db_1row get_fund "select sf.export_p, sf.title, sf.description, sf.account_code, sf.amount from scholarship_fundi sf, cr_items ci where sf.revision_id=ci.live_revision and sf.item_id=:item_id"
-    set export_inform [_ [ad_decode $export_p t "acs-kernel.common_Yes" "acs-kernel.common_No"]]
 }
 
 set actions ""
@@ -63,15 +61,19 @@ template::list::create \
 	grant_amount {
 	    label "Amount"
 	}
+	export_p {
+	    label "Exported?"
+	    display_eval {[_ [ad_decode $export_p t "acs-kernel.common_Yes" "acs-kernel.common_No"]]}
+	}
     }
 
 db_multirow grants grants {
-    select person__name(user_id), to_char(grant_date, 'Month dd, yyyy hh:miam') as grant_date, grant_amount
+    select person__name(user_id), to_char(grant_date, 'Month dd, yyyy hh:miam') as grant_date, grant_amount, export_p
     from scholarship_fund_grants
     where fund_id in (select fund_id
 		      from scholarship_fundi
 		      where item_id = :item_id)
-    group by person__name, grant_date, grant_amount
+    group by person__name, grant_date, grant_amount, export_p
     order by scholarship_fund_grants.grant_date
 }
 

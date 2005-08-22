@@ -24,7 +24,7 @@ permission::require_permission \
     -privilege "read"
 
 # let's check first if there are unmarked items for export
-if { [db_string "count_transferred" "select count(*) from scholarship_fund where export_p = false"] > 0  } {
+if { [db_string "count_transferred" "select count(*) from scholarship_fund_grants where export_p = false"] > 0  } {
 	append content "<p>Click the download link to start downloading the exported records in CSV format.</p>"
 	set qstring "all=$all&mark=$mark"
 	

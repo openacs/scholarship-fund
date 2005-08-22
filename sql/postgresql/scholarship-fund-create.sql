@@ -13,5 +13,6 @@ create table scholarship_fund_grants (
 	user_id integer references users on delete cascade not null,
 	grant_date timestamp default current_timestamp not null,
 	gift_certificate_id integer references ec_gift_certificates not null,
-	grant_amount float not null
+	grant_amount float not null,
+	export_p boolean
 );

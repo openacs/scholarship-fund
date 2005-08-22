@@ -7,13 +7,13 @@
     <initial-install-p>f</initial-install-p>
     <singleton-p>f</singleton-p>
     
-    <version name="0.6d" url="http://openacs.org/repository/download/apm/scholarship-fund-0.6d.apm">
+    <version name="0.7d" url="http://openacs.org/repository/download/apm/scholarship-fund-0.7d.apm">
         <owner url="mailto:admin@solutiongrove.com">Solution Grove</owner>
         <summary>Manage scholarships for dotlrn classes</summary>
         <vendor url="http://www.solutiongrove.com/">Solution Grove</vendor>
         <description format="text/html">Manage scholarships for dotlrn classes</description>
 
-        <provides url="scholarship-fund" version="0.6d"/>
+        <provides url="scholarship-fund" version="0.7d"/>
 
         <callbacks>
             <callback type="after-install"      proc="sf::install::package_install"/>
