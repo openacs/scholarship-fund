@@ -40,32 +40,38 @@ ad_form -name one -mode display -export { item_id } -has_edit 1 -form {
     db_1row get_fund "select sf.title, sf.description, sf.account_code, sf.amount from scholarship_fundi sf, cr_items ci where sf.revision_id=ci.live_revision and sf.item_id=:item_id"
 }
 
-# template::list::create \
-#     -name grants \
-#     -multirow grants \
-#     -no_data "No grants from this fund" \
-#     -actions [list Grant scholarship-grant?fund_id=$fund(fund_id) Grant] \
-#     -elements {
-# 	person__name {
-# 	    label "User"
-# 	}
-# 	grant_date {
-# 	    label "Date Granted"
-# 	}
-# 	grant_amount {
-# 	    label "Amount"
-# 	}
-#     }
+set actions ""
 
-# db_multirow grants grants {
-#     select person__name(user_id), to_char(grant_date, 'Month dd, yyyy hh:miam') as grant_date, grant_amount
-#     from scholarship_fund_grants
-#     where fund_id in (select fund_id
-# 		      from scholarship_fundi
-# 		      where item_id = :item_id)
-#     group by person__name, grant_date, grant_amount
-#     order by scholarship_fund_grants.grant_date
-# }
+if {0} {
+    set actions  [list Grant scholarship-grant?fund_id=$fund(fund_id) Grant]
+}
+
+template::list::create \
+    -name grants \
+    -multirow grants \
+    -no_data "No grants from this fund" \
+    -actions $actions \
+    -elements {
+	person__name {
+	    label "User"
+	}
+	grant_date {
+	    label "Date Granted"
+	}
+	grant_amount {
+	    label "Amount"
+	}
+    }
+
+db_multirow grants grants {
+    select person__name(user_id), to_char(grant_date, 'Month dd, yyyy hh:miam') as grant_date, grant_amount
+    from scholarship_fund_grants
+    where fund_id in (select fund_id
+		      from scholarship_fundi
+		      where item_id = :item_id)
+    group by person__name, grant_date, grant_amount
+    order by scholarship_fund_grants.grant_date
+}
 
 set page_title "One Scholarship Fund"
 set context [list $page_title]
