@@ -127,7 +127,7 @@ ad_proc -private sf::install::after_upgrade {
 		    -pretty_name "Exported" \
 		    -pretty_plural "Exported" \
 		    -column_spec "boolean"
-		db_dml "export_set_default" "alter scholarship_fund alter column export_p set default 'false'"
+		db_dml "export_set_default" "alter table scholarship_fund alter column export_p set default 'false'"
 		db_dml "export_p_update" "update scholarship_fund set export_p ='false'"
 	    }
 	}
