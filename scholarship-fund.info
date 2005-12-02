@@ -14,6 +14,7 @@
         <description format="text/html">Manage scholarships for dotlrn classes</description>
 
         <provides url="scholarship-fund" version="0.7d"/>
+        <requires url="ecommerce" version="5.05"/>
 
         <callbacks>
             <callback type="after-install"      proc="sf::install::package_install"/>
