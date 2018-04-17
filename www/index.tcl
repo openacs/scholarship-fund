@@ -1,15 +1,15 @@
 # 
 
 ad_page_contract {
-    
+
     List scholarship Funds
-    
+
     @author Dave Bauer (dave@thedesignexperience.org)
     @creation-date 2005-05-17
     @arch-tag: d8a5f3d7-6fa9-441b-a082-3c8db5eb6c67
     @cvs-id $Id$
 } {
-    
+
 } -properties {
     page_title
     context
@@ -31,7 +31,7 @@ set admin_p [permission::permission_p \
                  -privilege "admin"]
 
 set actions [list "Add Fund" fund-add-edit "Add a new scholarship fund" \
-		  "Export All Non-Transferred and MARK ALL Transfered" export-confirm?all=1&mark=1 "Export All Expenses" \
+		  "Export All Non-Transferred and MARK ALL Transferred" export-confirm?all=1&mark=1 "Export All Expenses" \
 		  "Export All but DO NOT MARK Transferred" export-confirm?all=1&mark=0 "Export Expenses"]
 
 db_multirow -extend { one_url edit_url delete_url } funds get_funds "" {
